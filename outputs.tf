@@ -32,3 +32,13 @@ output "workforce_audience" {
   description = "Audience for GitHub Actions OIDC token"
   value       = "//iam.googleapis.com/${google_iam_workforce_pool.github.name}/providers/${google_iam_workforce_pool_provider.github_oidc.provider_id}"
 }
+
+output "service_account_email" {
+  description = "Service Account email for IAP access"
+  value       = google_service_account.iap_accessor.email
+}
+
+output "iap_client_id" {
+  description = "IAP OAuth Client ID (audience for ID token)"
+  value       = google_iap_client.main.client_id
+}

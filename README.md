@@ -40,8 +40,10 @@ No modules.
 | [google_compute_url_map.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map) | resource |
 | [google_iap_brand.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iap_brand) | resource |
 | [google_iap_client.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iap_client) | resource |
-| [google_iap_web_backend_service_iam_member.workforce](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iap_web_backend_service_iam_member) | resource |
+| [google_iap_web_backend_service_iam_member.service_account](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iap_web_backend_service_iam_member) | resource |
 | [google_project_service.apis](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
+| [google_service_account.iap_accessor](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
+| [google_service_account_iam_member.workforce_token_creator](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account_iam_member) | resource |
 | [google_client_openid_userinfo.me](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/client_openid_userinfo) | data source |
 
 ## Inputs
@@ -59,6 +61,8 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_cloud_run_url"></a> [cloud\_run\_url](#output\_cloud\_run\_url) | Cloud Run service URL (internal) |
+| <a name="output_iap_client_id"></a> [iap\_client\_id](#output\_iap\_client\_id) | IAP OAuth Client ID (audience for ID token) |
+| <a name="output_service_account_email"></a> [service\_account\_email](#output\_service\_account\_email) | Service Account email for IAP access |
 | <a name="output_service_url"></a> [service\_url](#output\_service\_url) | Public service URL (via Load Balancer) |
 | <a name="output_static_ip"></a> [static\_ip](#output\_static\_ip) | Static IP address for DNS configuration |
 | <a name="output_workforce_audience"></a> [workforce\_audience](#output\_workforce\_audience) | Audience for GitHub Actions OIDC token |

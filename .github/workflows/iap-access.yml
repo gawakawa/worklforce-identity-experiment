@@ -42,10 +42,29 @@ jobs:
           fi
           echo "token=$ACCESS_TOKEN" >> "$GITHUB_OUTPUT"
 
+      - name: Generate ID Token for IAP
+        id: iap_token
+        run: |
+          RESPONSE=$(curl -sS -X POST \
+            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${{ vars.SERVICE_ACCOUNT_EMAIL }}:generateIdToken" \
+            -H "Authorization: Bearer ${{ steps.sts.outputs.token }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "audience": "'"${{ vars.IAP_CLIENT_ID }}"'",
+              "includeEmail": true
+            }')
+          ID_TOKEN=$(echo "$RESPONSE" | jq -r '.token')
+          if [ "$ID_TOKEN" = "null" ] || [ -z "$ID_TOKEN" ]; then
+            echo "Failed to generate ID token:"
+            echo "$RESPONSE" | jq .
+            exit 1
+          fi
+          echo "token=$ID_TOKEN" >> "$GITHUB_OUTPUT"
+
       - name: Access IAP-protected service
         run: |
           RESPONSE=$(curl -sS -w "\n%{http_code}" \
-            -H "Authorization: Bearer ${{ steps.sts.outputs.token }}" \
+            -H "Authorization: Bearer ${{ steps.iap_token.outputs.token }}" \
             "https://${{ vars.DOMAIN }}/")
           HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
           BODY=$(echo "$RESPONSE" | sed '$d')
