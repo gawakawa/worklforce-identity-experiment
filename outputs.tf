@@ -38,7 +38,3 @@ output "service_account_email" {
   value       = google_service_account.iap_accessor.email
 }
 
-output "iap_client_id" {
-  description = "IAP OAuth Client ID (audience for ID token)"
-  value       = google_iap_client.main.client_id
-}
